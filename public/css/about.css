@@ -1,0 +1,46 @@
+body {
+	font-family: 'Capriola';font-size: 14px;
+	text-align: center;
+	line-height: 200%;
+}
+
+ul {
+  list-style-type: none;
+  width:100;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: white;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color:lightblue;
+}
+
+.makers {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+}
+
+.maker img {
+	width: 10em;
+	border-radius: 50%;
+}
+
+.maker p {
+	font-size: 1.5em;
+}
