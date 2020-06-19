@@ -23,8 +23,9 @@ body {
 	display: flex;
 	justify-content: space-evenly;
 }
-#next-word {
+#words {
 	position: absolute;
+	text-align: center;
 	left: 0;
 	right: 0;
 	top: 18%;
