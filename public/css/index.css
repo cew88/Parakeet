@@ -2,6 +2,11 @@
 	font-family: 'Capriola';
 }
 
+@font-face {
+  font-family: retro;
+  src: url(/pixelly.ttf);
+}
+
 body {
 	font-size: 14px;
 	display: flex;

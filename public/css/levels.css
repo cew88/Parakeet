@@ -10,33 +10,17 @@ body {
 	padding: 0;
 }
 #container {
-	position: relative;
 	background: none;
 	width: 100%;
 	flex-grow: 1;
 	margin: 0;
-}
-.level-icon {
-	position: absolute;
-	border: 2px solid black;
-	font-size: 4vmin;
 	display: flex;
-	justify-content: center;
+	padding: 2em;
+	justify-content: space-evenly;
 	align-items: center;
-	background: url("https://lh3.googleusercontent.com/proxy/GK9s6d_Hf83-2ENNauIeYJSsBwiAvQnbky6uzSR8UqgXqxr8npOhRZscFYratGw6xEIRl84b9ee1OOXCQMYRHecOf9tkmhF7");
-	filter: brightness(120%);
-	background-size: cover;
-	border-radius: 50%;
-	cursor: pointer;
-}
-.level-icon:hover {
-	filter: brightness(100%);
-	/* background: rgba(0, 0, 0, 0.1); */
-}
-.line {
-	position: absolute;
-	border: none;
-	background: black;
+	flex-wrap: wrap;
+	flex-direction: row;
+	overflow-y: auto;
 }
 h2 {
 	font-size: 2.1em;
@@ -49,21 +33,23 @@ h2 {
 }
 .level-listing {
 	display: flex;
-	font-size: 2em;
-	height: 3em;
-	border-bottom: 1px solid black;
-	padding-left: 1em;
-	text-align: left;
+	width: 20em;
+	height: 20em;
+	margin: 1em;
+	border: 0.5em solid black;
+	border-radius: 4em;
+	justify-content: center;
 	align-items: center;
+	background: url("/images/stage backg.png");
+	background-size: cover;
 	transition-duration: 0.4s; 
-}
-.level-listing:first-child {
-	margin-top: 1em;
-	border-top: 1px solid black;
 }
 
 .level-listing:hover {
 	background-color: rgba(0, 0, 0, 0.2);
-	height: 4em;
+	transform: rotate3d(-1, 1, 1, 20deg);
 	/* box-shadow: 0 0 0.8em 2px rgb(0, 0, 255); */
+}
+.level-listing span {
+	font-size: 10em;
 }

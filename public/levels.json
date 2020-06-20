@@ -1,23 +1,52 @@
 {
-	"1": {
-		"1": "my-name-is-skye-and-I-want-to-be-your-friend",
-		"2": "The-happy-apple-played-with-the-banana",
-		"3": "",
-		"4": "",
-		"5": ""
+	"Beginner": {
+		"1": "Lily-and-Pogo-were-best-friends.",
+		"2": "They-woke-in-the-same-nest-and-stayed-with-each-other-until-the-day's-end.",
+		"3": "Lily-had-yellow-fuzz-oh-so-bright.",
+		"4": "Pogo-had-fluffy-feathers-that-kept-him-warm-at-night.",
+		"5": "Together-they-played-in-the-pond.",
+    "6": "They-chased-each-other-until-they-yawned.",
+    "7": "They-scavenged-for-worms,-grasses,-and-weeds.",
+    "8": "They-hunted-for-insects,-berries,-nuts,-and-seeds.",
+    "9": "Lily-and-Pogo-learned-how-to-fly.",
+    "10": "Preening-helped-them-to-stay-dry."
 	},
-	"2": {
-		"1": "",
-		"2": "",
-		"3": "",
-		"4": "",
-		"5": ""
+	"Intermediate": {
+		"1": "A-cloud-appeared-overhead,-turning-the-blue-sky-gray.",
+		"2": "On-their-amble-home-they-lost-the-way",
+		"3": "Scared,-Pogo-started-to-shake-and-tremble.",
+		"4": "Lily-hugged-Pogo;-the-act-was-instrumental",
+		"5": "They-felt-precipitation-and-knew-they-ought-to-go",
+    "6": "They-ran-through-trees-to-home,-and-their-race-was-toe-to-toe",
+    "7": "The-pond-water-turned-choppy,-turbulent,-and-rough.",
+    "8": "They-spotted-an-island-to-rest,-but-fighting-the-weather-was-getting-tough.",
+    "9": "The-whistling-wind-pulled-the-ducklings-apart-amidst-the-storm.",
+		"10": "Pogo-spread-her-wings-and-miraculously-became-airborn.",
+		"11": "Pogo-landed-safely-home,-basking-in-delight.",
+		"12": "Lily-drifted-to-the-island,-distraught-and-forlorn,-searching-for-Pogo-through-the-night."
 	},
-	"3": {
-		"1": "Quinoa-Sherbet-Vicissitude-Conch-Colonel-Solder-Recondite",
-		"2": "Preternatural-Boatswain-Coxswain-Epitome-Coup-Discretion-Asthma",
-		"3":"Imprimatur-Debut-Expresso-Mischievous-Cache-Debris-Lingerie-Poignant",
-		"4": "Debauch-Grandiloquent-Maelstrom-Panacea-Phlegmatic-Faux pas",
-		"5": "supercalifragilisticexpialidocious-Antidisestablishmentarianism-Pseudopseudohypoparathyroidism-honorificabilitudinitatibus-Hippopotomonstrosesquippedaliophobia-Floccinaucinihilipilification-Pneumonoultramicroscopicsilicovolcanoconiosis"
-	}
+	"Advanced": {
+		"1": "Pogo-woke-at-sunrise-and-ate-her-quinoa-breakfast.",
+		"2": "But-without-Lily-proximate-she-recalled-last-night's-tempest",
+		"3": "She-inquired-to-her-father,-Bjorn,-if-Lily-made-it-home.",
+		"4": "Bjorn-replied-she-hadn't,-in-a-despondent-tone.",
+		"5": "Pogo-immediately-flew-off,-and-Bjorn-watched-in-disbelief.",
+    "6": "She-found-Lily-sleeping,-unkempt-and-by-the-shore",
+		"7": "She-woke-her-cordially,-that-Lily-would-be-tranquil-she-was-sure",
+		"8": "Instead,-Lily-joyously-jumped-and-hugged-and-squawked,-delighted",
+		"9": "triumph",
+		"10": "eloquent"
+	},
+  "Expert":{
+    "1": "Lily-and-Pogo-sauntered-to-the-pond-and-sought-to-play",
+		"2": "They-scampered-and-played-tag-when-a-schnauzer-joined-the-fray",
+		"3": "They-adorned-themselves-with-leaves-from-foliage-and-masqueraded-around",
+		"4": "They-ascended-trees-and-glimpsed-vistas-profound",
+		"5": "Bjorn,-the-schnauzer,-burrowed-holes",
+    "6": "Lily-and-Pogo-sauntered-to-the-pond-and-sought-to-play",
+		"7": "They-scampered-and-played-tag-when-a-schnauzer-joined-the-fray",
+		"8": "They-adorned-themselves-with-leaves-from-foliage-and-masqueraded-around",
+		"9": "They-ascended-trees-and-glimpsed-vistas-profound",
+		"10": "Bjorn,-the-schnauzer,-burrowed-holes"
+  }
 }

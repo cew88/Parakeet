@@ -18,9 +18,10 @@
       <li><a href="about.html">About</a></li>
     </ul>
 
-    
+    <h2> Read the Sentence Aloud to Move Forward!</h2>
+
 		<div id="words">
-      <img id="repeat_pronunciation" src="images/volume.png" width=4%>
+      <img id="repeat_pronunciation" src="images/volume.png">
 			<p id="next-word">Next Word</p>
 			<p id="said"></p>
       
@@ -31,12 +32,39 @@
 		<div id="outer">
 		</div>
 
-    <!-- The Modal -->
+    <!-- End Modal -->
     <div id="score_modal" class="modal">
       <div class="modal-content">
         <a class="close" href='/levels.html'>&times;</a>
-        <p>Challenge Complete!</p>
+        <h1>Challenge Complete!</h1>
         <span id="stars"> </span>
+      </div>
+    </div>
+
+    <!-- Intro Scene Modal -->
+    <div id="intro_modal" class="scene-modal">
+      <div class="modal-content">
+        <div class="scene">
+          <a class="close">&times;</a>
+          <img class="scene-image" src="images/intro_scene.png" >
+        </div>
+      </div>
+    </div>
+
+    <!-- Storm Modal -->
+    <div id="storm_modal" class="modal">
+      <div class="modal-content">
+        <div class="scene">
+          <a class="close">&times;</a>
+          <img class="scene-image" src="images/storm_scene.png" >
+        </div>
+      </div>
+    </div>
+
+    <!-- Reunited Modal -->
+    <div id="reunited_modal" class="modal">
+      <div class="modal-content">
+        <!--<img src="images/reunited.png">-->
       </div>
     </div>
 

@@ -1,5 +1,14 @@
-var modal = document.getElementById("score_modal");
-var span = document.getElementsByClassName("close")[0];
+var end_modal = document.getElementById("score_modal");
+var end_modal_close = document.getElementsByClassName("close")[0];
+
+var intro_modal = document.getElementById("intro_modal");
+var intro_modal_close = document.getElementsByClassName("close")[1];
+
+var storm_modal = document.getElementById("storm_modal");
+var storm_modal = document.getElementsByClassName("close")[2];
+
+var reunited_modal = document.getElementById("reunited_modal");
+
 var nextWord = document.getElementById("next-word");
 var said = document.getElementById("said");
 var sentence_to_read = document.getElementById("sentence_to_read");
@@ -11,16 +20,6 @@ var currentCrate = 0;
 var finished = false;
 
 
-nounList = ["apple", "banana", "hamster"];
-verbList = ["ate", "ran", "spoke"];
-adjList = ["happy", "excited", "yellow"];
-advList = ["quickly", "slowly"];
-conjList = ["for", "and", "nor", "but", "yet", "so"];
-subordList = ["after", "although", "as", "because", "before", "even though", "even if", "if", "once", "though", "unless", "until", "when", "whenever"];
-prepList = ["about", "above", "according to", "across", "after", "against", "ahead of", "along", "amidst", "among", "amongst", "before", "behind", "below", "beneath", "beside", "besides", "between", "beyond", "by", "inside", "into", "except", "next to", "past", "towards", "to", "under", "underneath"];
-
-sentence_to_read.innerHTML = generateSentence("simple");
-
 window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
 
 if ('SpeechRecognition' in window) {
@@ -29,8 +28,8 @@ if ('SpeechRecognition' in window) {
   console.log("Not Supported");
 }
 
-var levelNum = parseInt(localStorage.getItem('level'));
-var stageNum = parseInt(localStorage.getItem('stage'));
+var levelNum = localStorage.getItem('level');
+var stageNum = localStorage.getItem('stage');
 console.log('level', levelNum, 'stage', stageNum);
 
 var outer = document.getElementById('outer'),
@@ -65,8 +64,9 @@ var test;
 
 var currentWord = 0;
 fetch('levels.json').then(response => response.json()).then(json => {
-	//stage = json[levelNum][stageNum].split('-');
-  stage = sentence_to_read.innerHTML.split(' ');
+	stage = json[levelNum][stageNum].split('-');
+  sentence_to_read.innerHTML = 	json[levelNum][stageNum].split('-').join(' ');
+
 	nextWord.innerHTML = stage[currentWord];
 	makeCratePatern(stage);
 	console.log('pattern', cratePattern);
@@ -88,7 +88,7 @@ fetch('levels.json').then(response => response.json()).then(json => {
 			return;
 		}
 		let interimTranscript = '';
-		let focus = stage[currentWord].toLowerCase();
+		let focus = removePunctuation(stage[currentWord].toLowerCase());
 
 		for (let i = event.resultIndex, len = event.results.length; i < len; i++) {
 			let transcript = event.results[i][0].transcript.trim().toLowerCase();
@@ -98,7 +98,7 @@ fetch('levels.json').then(response => response.json()).then(json => {
 					scene.autoHop();
 					if (currentWord == stage.length){
 						console.log('finished');
-            modal_display();
+            display_modal();
 						return;
 					}
 					focus = stage[currentWord].toLowerCase();
@@ -189,6 +189,7 @@ function startGame(){
 		this.load.image('ground', 'images/platform.png');
 		this.load.image('crate', 'images/crate.png');
     this.load.image('finish_flag', 'images/finishflag.png');
+		this.load.image('duck', 'images/duck.png');
 
 		scene = this;
 
@@ -213,12 +214,13 @@ function startGame(){
 		scaleByHeight(this.finish, vmin/5);
 		this.finish.setOrigin(0,0);
 
-		this.player = this.physics.add.sprite(vmin*0.1/5, height - groundHeight - vmin/3, 'poppy')
+		this.player = this.physics.add.sprite(vmin*0.1/5, height - groundHeight - vmin/3, 'duck')
 		scaleByWidth(this.player, vmin/6);
 		this.player.setOrigin(0, 0);
 		this.player.setCollideWorldBounds(false);
 		this.player.onWorldBounds = false;
 		this.player.setBounce(0.2);
+		this.player.flipX = true;
 
 		// MAKING THE CRATES
 		for (let i = 0; i < cratePattern.length - 1; i++){
@@ -319,7 +321,6 @@ function startGame(){
 	function scaleByWidth(object, w){ object.setScale(w/object.width); }
 }
 
-
 function pronounce_word(){  
   word = nextWord.innerHTML;
   let xhr_definition = new XMLHttpRequest();
@@ -348,12 +349,11 @@ function pronounce_word(){
 
 function display_modal(){
 	finished = true;
-	modal.style.display = "block";
+	end_modal.style.display = "block";
 	var star = document.createElement("img");
 	star.setAttribute("src", "images/star.png");
 	star.setAttribute("width", "5%");
   star.style.display = 'inline-block';
-  
 
 	if (total_words/sentence_length <= 3){
 		document.getElementById("stars").appendChild(star);
@@ -377,107 +377,36 @@ function display_modal(){
 	}
 }
 
-span.onclick = function(){
-  modal.style.display = "none";
+if (levelNum == "Beginner" && stageNum == 1) {
+  intro_modal.style.display = "block";
 }
+
+if (levelNum == "Intermediate" && stageNum == 12){
+  storm_modal.style.display = "block";
+}
+
+end_modal_close.onclick = function(){
+  end_modal.style.display = "none";
+}
+
+intro_modal_close.onclick = function(){
+  intro_modal.style.display = "none";
+}
+
+storm_modal_close.onclick = function(){
+  storm_modal.style.display = "none";
+}
+
 
 window.onclick = function(event){
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
+  end_modal.style.display = "none";
+  intro_modal.style.display = "none";
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function generateSentence(sentence_type){
-  if (sentence_type == "simple"){
-    simple_structures = [
-      //Subject + Verb
-      ("The " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor(Math.random() * verbList.length)]),
-
-      //Subject + Verb + Object
-      ("The " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor((Math.random() * verbList.length))] + " " + nounList[Math.floor(Math.random() * nounList.length)]),
-
-      //Subject + Verb + Adverb
-      ("The " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor((Math.random() * verbList.length))] + " " + advList[Math.floor(Math.random() * advList.length)]),
-
-      //Subject + Verb + Adj
-      ("The " + nounList[Math.floor(Math.random() * nounList.length)] + " is " + adjList[Math.floor(Math.random() * adjList.length)]),
-
-      //Subject + Verb + Noun
-      ("The " + nounList[Math.floor(Math.random() * nounList.length)] + " is a " + nounList[Math.floor(Math.random() * nounList.length)]),
-
-      //Adjective + Subject + Verb
-      ("The " + adjList[Math.floor(Math.random() * adjList.length)] + " " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor(Math.random() * verbList.length)]),
-
-      //Adjective + Subject + Verb + Object
-      ("The " + adjList[Math.floor(Math.random() * adjList.length)] + " " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor((Math.random() * verbList.length))] + " a " + nounList[Math.floor(Math.random() * nounList.length)]),
-
-      //Adjective + Subject + Verb + Adverb
-      ("The " + adjList[Math.floor(Math.random() * adjList.length)] + " " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor((Math.random() * verbList.length))] + " " + advList[Math.floor(Math.random() * advList.length)]),
-
-      //Adjective + Subject + Verb + Adj
-      ("The " + adjList[Math.floor(Math.random() * adjList.length)] + " " + nounList[Math.floor(Math.random() * nounList.length)] + " is " + adjList[Math.floor(Math.random() * adjList.length)]),
-
-      //Adjective + Subject + Verb + Noun
-      ("The " + adjList[Math.floor(Math.random() * adjList.length)] + " " + nounList[Math.floor(Math.random() * nounList.length)] + " is a " + nounList[Math.floor(Math.random() * nounList.length)])
-    ];
-    return simple_structures[Math.floor(Math.random()*simple_structures.length)];
-  }
-
-  else if (sentence_type == "compound"){
-    //Subject + Verb, CONJUNCTION Subject + Verb
-    return
-    ("The " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor(Math.random() * verbList.length)] + ", " + conjList[Math.floor(Math.random() * conjList.length)] + "the " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor(Math.random() * verbList.length)]);
-
-  }
-
-  else if (sentence_type == "complex"){
-    //Subject + Verb SUBORD Subject + Verb
-    return ("The " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor(Math.random() * verbList.length)] + " " + subordList[Math.floor(Math.random() * subordList.length)] + " the " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor(Math.random() * verbList.length)]);
-    
-  }
-
-  else if (sentence_type == "compound_complex"){
-    compound_complex_structures= [
-
-    //Subject + Verb CONJUNCTION Subject + Verb SUBORD Subject + Verb
-    ("The " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor(Math.random() * verbList.length)] + ", " + conjList[Math.floor(Math.random() * conjList.length)] + " the " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor(Math.random() * verbList.length)] + " " + subordList[Math.floor(Math.random() * subordList.length)] + " the " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor(Math.random() * verbList.length)]),
-
-    //Subject + Verb SUBORD Subject + Verb CONJUNCTION Subject + Verb
-    ("The " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor(Math.random() * verbList.length)] + " " + subordList[Math.floor(Math.random() * subordList.length)] + " the " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor(Math.random() * verbList.length)] + ", " + conjList[Math.floor(Math.random() * conjList.length)] + " the " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor(Math.random() * verbList.length)])
-    ]
-    
-    return compound_complex_structures[Math.floor(Math.random()*compound_complex_structures.length)];
-    
-  }
-
-  else if (sentence_type == "preposition"){
-    return ("The " + nounList[Math.floor(Math.random() * nounList.length)] + " " + verbList[Math.floor(Math.random() * verbList.length)] + " " + prepList[Math.floor(Math.random() * prepList.length)] + " the " + nounList[Math.floor(Math.random() * nounList.length)]);
-  }
+function removePunctuation(str){
+	let punctuation = `.,'"!`;
+	for (let i = 0; i < punctuation.length; i++){
+		str = str.split(punctuation.charAt(i)).join("");
+	}
+	return str;
 }
