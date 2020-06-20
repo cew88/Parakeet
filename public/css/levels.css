@@ -47,4 +47,23 @@ h2 {
 	padding: 0.25em;
 	outline: none;
 }
+.level-listing {
+	display: flex;
+	font-size: 2em;
+	height: 3em;
+	border-bottom: 1px solid black;
+	padding-left: 1em;
+	text-align: left;
+	align-items: center;
+	transition-duration: 0.4s; 
+}
+.level-listing:first-child {
+	margin-top: 1em;
+	border-top: 1px solid black;
+}
 
+.level-listing:hover {
+	background-color: rgba(0, 0, 0, 0.2);
+	height: 4em;
+	/* box-shadow: 0 0 0.8em 2px rgb(0, 0, 255); */
+}
