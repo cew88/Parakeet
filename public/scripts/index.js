@@ -3,7 +3,7 @@ var stage = parseInt(localStorage.getItem('stage'));
 
 if (!level){
 	level = 1;
-	localStorage.setItem('level', '1');
+	localStorage.setItem('level', 'Beginner');
 }
 
 if (stage == null){
