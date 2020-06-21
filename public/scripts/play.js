@@ -328,17 +328,20 @@ function startGame(){
 
 var synth = window.speechSynthesis;
 function pronounce_word(){
-  console.log(synth.getVoices());
   word = nextWord.innerHTML;
   var utterThis = new SpeechSynthesisUtterance(word);
 	let voices = synth.getVoices();
 	for (let i of voices){
-		if (i.voiceURI == 'Google русский'){
+		if (i.voiceURI == 'Google US English'){
 			utterThis.voice = i;
 			break;
 		}
 	}
+	utterThis.rate = 0.7;
   synth.speak(utterThis);
+	synth.addEventListener('end', e => {
+		
+	})
 }
 
 function display_modal(){
