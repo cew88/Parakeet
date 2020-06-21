@@ -305,12 +305,12 @@ function startGame(){
 				c.refreshBody();
 			}
 		}
-    if (cursors.right.isDown && this.player.body.touching.down){
-	  	currentWord++;
-	  	nextWord.innerHTML = stage[currentWord] || "";
-	  	if (currentWord == stage.length) display_modal();
-	  	this.autoHop();
-	  }
+    // if (cursors.right.isDown && this.player.body.touching.down){
+	  // 	currentWord++;
+	  // 	nextWord.innerHTML = stage[currentWord] || "";
+	  // 	if (currentWord == stage.length) display_modal();
+	  // 	this.autoHop();
+	  // }
 		else if (this.player.body.touching.down){
 			this.player.setVelocityX(0);
 		}
