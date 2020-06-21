@@ -329,6 +329,7 @@ function startGame(){
 var synth = window.speechSynthesis;
 function pronounce_word(){
   word = nextWord.innerHTML;
+	
   var utterThis = new SpeechSynthesisUtterance(word);
 	let voices = synth.getVoices();
 	for (let i of voices){
@@ -339,9 +340,9 @@ function pronounce_word(){
 	}
 	utterThis.rate = 0.7;
   synth.speak(utterThis);
-	synth.addEventListener('end', e => {
-		
-	})
+	utterThis.addEventListener('end', e => {
+		console.log("ended");
+	});
 }
 
 function display_modal(){
