@@ -3,34 +3,34 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <title>repl.it</title>
-    <link href="css/play.css" rel="stylesheet" type="text/css" /> 
-		<link href="css/index.css" rel="stylesheet" type="text/css" />  
+    <title>Duck Duck Goose</title>
+		<link rel="icon" type="image/png" href="/images/duuuck.png"/>
+    <link href="css/play.css" rel="stylesheet" type="text/css" />  
     <link href='https://fonts.googleapis.com/css?family=Capriola' rel='stylesheet'> 
 
 		<script src="//cdn.jsdelivr.net/npm/phaser@3.23.0/dist/phaser.js"></script>
   </head>
   <body>
     <!-- Navigation Bar -->
-    <ul height="2em !important">
+    <ul id="nav" height="2em !important">
       <li><a href="levels.html">Back</a></li>
       <li><a href="about.html">About</a></li>
     </ul>
 
-    <h2> Read the Sentence Aloud to Move Forward!<br> Please pause between each word.</h2>
+    <h2> Read the sentence aloud to move forward!<br> Please pause between each word.</h2>
 
 		<div id="words">
       <img id="repeat_pronunciation" src="images/volume.png">
 			<p id="next-word">Next Word</p>
 			<p id="said"></p>
       
-      <br><br><br><br><br><br><br><br><br>
-      <p id="sentence_to_read"></p>
+      
 		</div>
 
 		<div id="outer">
 		</div>
-		
+    
+		<p id="sentence_to_read"></p>
 		
 
     <!-- End Modal -->

@@ -1,26 +1,53 @@
+* {
+	font-family: 'Capriola';
+}
+@font-face {
+  font-family: retro;
+  src: url(/pixelly.ttf);
+}
 body {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-evenly;
-	align-items: center;
+	justify-content: space-between;
 	text-align: center;
 	height: 100vh;
 	overflow: hidden;
 	margin: 0;
 	padding: 0;
-	/* background-size: cover; */
-	background-position: left bottom;
+}
+ul {
+  list-style-type: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: white;
+}
+li {
+  float: left;
+}
+li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+li a:hover {
+  background-color:lightblue;
+}
+#nav {
+	height: 2em;
+	margin: 0;
+	padding: 0;
 }
 #outer {
 	position: relative;
 	background: none;
 	width: 100%;
-	flex-grow: 1;
+	/* flex-grow: 1; */
+	height: 80vh;
 	margin: 0;
-}
-#container {
-	display: flex;
-	justify-content: space-evenly;
 }
 #words {
 	position: absolute;
@@ -42,7 +69,6 @@ tone-oscilloscope {
 button {
 	float: left;
 }
-body {font-family: Arial, Helvetica, sans-serif;}
 .modal {
   position: fixed;
   padding-top: 100px;
@@ -93,8 +119,12 @@ body {font-family: Arial, Helvetica, sans-serif;}
 .scene img {
   width: 1300px;
 }
-/* #sentence_to_read {
+#sentence_to_read {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	margin: 0;
+	margin-bottom: 0.5em;
 	padding: 0;
 	font-size: 2em;
-} */
+}

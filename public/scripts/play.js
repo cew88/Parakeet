@@ -208,7 +208,9 @@ function startGame(){
 
 	function create (){
 		// SETTING THE BACKGROUND
-		this.add.image(0, 0, 'enviro').setOrigin(0, 0);
+		let backg = this.add.image(0, 0, 'enviro').setOrigin(0, 0);
+		if (height/width > backg.height/backg.width) scaleByHeight(backg, height);
+		else scaleByWidth(backg, width);
 
 		// CREATING THE PHYSICS COMPONENTS
 		this.platforms = this.physics.add.staticGroup();
@@ -302,15 +304,13 @@ function startGame(){
 			for (let c of allCrates){
 				c.refreshBody();
 			}
-		}
-
-    
-		if (cursors.right.isDown && this.player.body.touching.down){
-			currentWord++;
-			nextWord.innerHTML = stage[currentWord] || "";
-			if (currentWord == stage.length) display_modal();
-			this.autoHop();
-		}
+		}    
+		// if (cursors.right.isDown && this.player.body.touching.down){
+		// 	currentWord++;
+		// 	nextWord.innerHTML = stage[currentWord] || "";
+		// 	if (currentWord == stage.length) display_modal();
+		// 	this.autoHop();
+		// }
 		else if (this.player.body.touching.down){
 			this.player.setVelocityX(0);
 		}
@@ -339,8 +339,11 @@ function pronounce_word(){
 		}
 	}
 	utterThis.rate = 0.7;
+	recognition.stop();
   synth.speak(utterThis);
 	utterThis.addEventListener('end', e => {
+		// recognition = new window.SpeechRecognition();
+		recognition.start();
 		console.log("ended");
 	});
 }

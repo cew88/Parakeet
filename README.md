@@ -7,5 +7,5 @@ With Duck Duck Goose, children can improve their literacy skills by practicing t
 
 ## Built With
 • HTML/CSS  
-• JavaScript
+• JavaScript  
 • Phaser.js

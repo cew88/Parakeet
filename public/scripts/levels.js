@@ -1,6 +1,6 @@
 var container = document.getElementById('container');
 var select = document.getElementById('level-select');
-var currentLevel = localStorage.getItem('level');
+var currentLevel = localStorage.getItem('level') || "Beginner";
 
 var boxes = [[25, 25], [25, 75], [50, 75], [50, 25], [75, 25]];
 var boxSize = 10;
