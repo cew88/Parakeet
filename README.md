@@ -9,3 +9,5 @@ With Duck Duck Goose, children can improve their literacy skills by practicing t
 • HTML/CSS  
 • JavaScript  
 • Phaser.js
+
+## In the event that the microphone does not work, make sure the Google Chrome Microphone Permissions are set to ALWAYS ALLOW MIC ACCESS
