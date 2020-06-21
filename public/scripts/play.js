@@ -21,6 +21,7 @@ var allCrates = [];
 var currentCrate = 0;
 var finished = false;
 var jumps = 0;
+var say = true;
 
 window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
 
@@ -44,6 +45,12 @@ var outer = document.getElementById('outer'),
 var wordPronounciations = {
 	'maid': ['made'],
   'knights': ['nights'],
+  'there': ['their','theyre'],
+  'their':['there','theyre'],
+  'theyre':['there','their'],
+  'sword':['soared'],
+  'are':['air'],
+	'days': ["day's"],
 	'0': ['zero'],
 	'1': ['one'],
 	'2': ['two', 'to', 'too'],
@@ -56,6 +63,8 @@ var wordPronounciations = {
 	'9': ['nine']
 };
 
+let recognition = new window.SpeechRecognition();
+//recognition.start();
 
 document.getElementById("repeat_pronunciation").onclick = pronounce_word;
 
@@ -73,15 +82,18 @@ fetch('levels.json').then(response => response.json()).then(json => {
 	console.log(stage);
 
 	let finalTranscript = '';
-	let recognition = new window.SpeechRecognition();
 
 	recognition.interimResults = true;
 	recognition.maxAlternatives = 10;
 	recognition.continuous = true;
 
 	recognition.onresult = (event) => {
+		if (!say) {
+			say = true;
+			return;
+		}
 		if (finished){
-			console.log("you've already finished");
+      recognition.stop();
 			return;
 		}
 		let interimTranscript = '';
@@ -95,6 +107,7 @@ fetch('levels.json').then(response => response.json()).then(json => {
 					jumps += 1;
 					if (currentWord == stage.length){
 						console.log('finished');
+						localStorage.setItem(levelNum + stageNum, "1");
             display_modal();
 						return;
 					}
@@ -109,6 +122,7 @@ fetch('levels.json').then(response => response.json()).then(json => {
 					jumps += 1;
 					if (currentWord == stage.length){
 						console.log('finished');
+						localStorage.setItem(levelNum + stageNum, "1");
 						display_modal();
 						return;
 					}
@@ -121,7 +135,7 @@ fetch('levels.json').then(response => response.json()).then(json => {
 			}
 		}
 
-		said.innerHTML = '<i style="color:#ddd;">' + interimTranscript + '</>';
+		//said.innerHTML = '<i style="color:#ddd;">' + interimTranscript + '</>';
 	}
 
 	recognition.start();
@@ -312,35 +326,20 @@ function startGame(){
 	function scaleByWidth(object, w){ object.setScale(w/object.width); }
 }
 
-function pronounce_word(){  
+var synth = window.speechSynthesis;
+function pronounce_word(){
+  console.log(synth.getVoices());
   word = nextWord.innerHTML;
-  let xhr_definition = new XMLHttpRequest();
-  xhr_definition.open("GET", "https://www.dictionaryapi.com/api/v3/references/collegiate/json/" + word + "?key=848dceed-1774-43e0-90cd-050cec693213");
-
-  xhr_definition.send();
-
-  
-  xhr_definition.onload = () => {
-    dict_json = (JSON.parse(xhr_definition.response));
-
-    try{
-      var pronunciation_audio = (dict_json[0].hwi.prs[0].sound.audio);
-      var word_txt = document.createTextNode(dict_json[0].meta.id + ": ");
-      var def_txt = document.createTextNode(dict_json[0].shortdef[0]);
-      
-      var audio = new Audio("https://media.merriam-webster.com/audio/prons/en/us/mp3/" + String(pronunciation_audio)[0] + "/" + pronunciation_audio + ".mp3");
-      audio.type = "audio/mp3";
-      audio.play();
-    }
-    catch(TypeError){
-      console.log("No pronunciation found");
-    }
-  }
-};
-
-
-
-;
+  var utterThis = new SpeechSynthesisUtterance(word);
+	let voices = synth.getVoices();
+	for (let i of voices){
+		if (i.voiceURI == 'Google русский'){
+			utterThis.voice = i;
+			break;
+		}
+	}
+  synth.speak(utterThis);
+}
 
 function display_modal(){
 	finished = true;

@@ -40,16 +40,27 @@ h2 {
 	border-radius: 4em;
 	justify-content: center;
 	align-items: center;
-	background: url("/images/stage backg.png");
+	background-image: url("/images/stage backg.png");
 	background-size: cover;
 	transition-duration: 0.4s; 
 }
 
 .level-listing:hover {
-	background-color: rgba(0, 0, 0, 0.2);
+	/* background-color: rgba(0, 0, 0, 0.2); */
+	background-color: rgba(0, 247, 255, 0.226); 
 	transform: rotate3d(-1, 1, 1, 20deg);
 	/* box-shadow: 0 0 0.8em 2px rgb(0, 0, 255); */
 }
 .level-listing span {
 	font-size: 10em;
 }
+.completed {
+	filter: brightness(50%);
+	background-color: rgba(0, 0, 0, 0.3) !important;
+	width: 16em;
+	height: 16em;
+}
+.Beginner { background-color: rgba(0, 190, 0, 0.281); }
+.Intermediate { background-color: rgba(205, 207, 78, 0.39); }
+.Advanced { background-color: rgba(255, 166, 0, 0.226); }
+.Expert { background-color: rgba(255, 102, 102, 0.226); }

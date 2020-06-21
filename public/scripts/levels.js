@@ -23,8 +23,10 @@ fetch('levels.json').then(response => response.json()).then(j => {
 function makeListings(level){
 	container.innerHTML = "";
 	for (let i = 0; i < Object.keys(json[level]).length; i++){
+		let classlist = "level-listing " + currentLevel;
+		if (localStorage.getItem(level + (i+1))) classlist += " completed";
 		container.innerHTML += `
-		<div class="level-listing" onclick="start(${i+1})">
+		<div class="${classlist}" onclick="start(${i+1})">
 		<span>${i+1}</span>
 		</div>
 		`;
@@ -33,6 +35,7 @@ function makeListings(level){
 
 function changeLevel(){
 	localStorage.setItem('level', select.value);
+	currentLevel = select.value;
 	makeListings(select.value);
 }
 
