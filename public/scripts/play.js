@@ -304,13 +304,13 @@ function startGame(){
 			for (let c of allCrates){
 				c.refreshBody();
 			}
-		}    
-		// if (cursors.right.isDown && this.player.body.touching.down){
-		// 	currentWord++;
-		// 	nextWord.innerHTML = stage[currentWord] || "";
-		// 	if (currentWord == stage.length) display_modal();
-		// 	this.autoHop();
-		// }
+		}
+    if (cursors.right.isDown && this.player.body.touching.down){
+	  	currentWord++;
+	  	nextWord.innerHTML = stage[currentWord] || "";
+	  	if (currentWord == stage.length) display_modal();
+	  	this.autoHop();
+	  }
 		else if (this.player.body.touching.down){
 			this.player.setVelocityX(0);
 		}
@@ -318,8 +318,7 @@ function startGame(){
 		if (this.player.body.touching.down && jumps > 0){
 			this.autoHop();
 			jumps -= 1;
-		}
-    
+    }
 	}
 
 	function scaleByHeight(object, h){ object.setScale(h/object.height); }
