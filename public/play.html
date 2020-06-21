@@ -12,13 +12,12 @@
   </head>
   <body>
     <!-- Navigation Bar -->
-    <ul>
+    <ul height="2em !important">
       <li><a href="levels.html">Back</a></li>
-      <li><a href="information.html">Information</a></li>
       <li><a href="about.html">About</a></li>
     </ul>
 
-    <h2> Read the Sentence Aloud to Move Forward!</h2>
+    <h2> Read the Sentence Aloud to Move Forward!<br> Please pause between each word.</h2>
 
 		<div id="words">
       <img id="repeat_pronunciation" src="images/volume.png">
@@ -26,11 +25,13 @@
 			<p id="said"></p>
       
       <br><br><br><br><br><br><br><br>
-      <p id="sentence_to_read"> </p>
+      <p id="sentence_to_read"></p>
 		</div>
 
 		<div id="outer">
 		</div>
+		
+		
 
     <!-- End Modal -->
     <div id="score_modal" class="modal">
@@ -64,10 +65,12 @@
     <!-- Reunited Modal -->
     <div id="reunited_modal" class="modal">
       <div class="modal-content">
-        <!--<img src="images/reunited.png">-->
+        <div class="scene">
+          <a class="close">&times;</a>
+          <img class="scene-image" src="images/reunited.png">
+        </div>
       </div>
     </div>
-
 
     <script src="scripts/play.js"></script>
   </body>

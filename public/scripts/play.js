@@ -5,9 +5,11 @@ var intro_modal = document.getElementById("intro_modal");
 var intro_modal_close = document.getElementsByClassName("close")[1];
 
 var storm_modal = document.getElementById("storm_modal");
-var storm_modal = document.getElementsByClassName("close")[2];
+var storm_modal_close = document.getElementsByClassName("close")[2];
 
 var reunited_modal = document.getElementById("reunited_modal");
+var reunited_modal_close = document.getElementsByClassName("close")[3];
+
 
 var nextWord = document.getElementById("next-word");
 var said = document.getElementById("said");
@@ -18,7 +20,7 @@ var cratePattern = [0];
 var allCrates = [];
 var currentCrate = 0;
 var finished = false;
-
+var jumps = 0;
 
 window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
 
@@ -40,8 +42,8 @@ var outer = document.getElementById('outer'),
 	crateHeight = vmin/5;
 
 var wordPronounciations = {
-	'sky': ['skye'],
-	'pho': ['faux'],
+	'maid': ['made'],
+  'knights': ['nights'],
 	'0': ['zero'],
 	'1': ['one'],
 	'2': ['two', 'to', 'too'],
@@ -58,19 +60,14 @@ var wordPronounciations = {
 document.getElementById("repeat_pronunciation").onclick = pronounce_word;
 
 var total_words = 0;
-var sentence_length = sentence_to_read.innerHTML.length;
-
-var test;
-
 var currentWord = 0;
 fetch('levels.json').then(response => response.json()).then(json => {
 	stage = json[levelNum][stageNum].split('-');
-  sentence_to_read.innerHTML = 	json[levelNum][stageNum].split('-').join(' ');
+  sentence_to_read.innerHTML = json[levelNum][stageNum].split('-').join(' ');
 
 	nextWord.innerHTML = stage[currentWord];
 	makeCratePatern(stage);
 	console.log('pattern', cratePattern);
-
 	startGame();
 
 	console.log(stage);
@@ -91,11 +88,11 @@ fetch('levels.json').then(response => response.json()).then(json => {
 		let focus = removePunctuation(stage[currentWord].toLowerCase());
 
 		for (let i = event.resultIndex, len = event.results.length; i < len; i++) {
-			let transcript = event.results[i][0].transcript.trim().toLowerCase();
+			let transcript = removePunctuation(event.results[i][0].transcript.trim().toLowerCase());
 			if (event.results[i].isFinal){
 				if (transcript == focus || (transcript in wordPronounciations && wordPronounciations[transcript].indexOf(focus) >= 0)){
 					currentWord++;
-					scene.autoHop();
+					jumps += 1;
 					if (currentWord == stage.length){
 						console.log('finished');
             display_modal();
@@ -109,7 +106,7 @@ fetch('levels.json').then(response => response.json()).then(json => {
 				interimTranscript = transcript;
 				if (transcript == focus || (transcript in wordPronounciations && wordPronounciations[transcript] == focus)){
 					currentWord++;
-					scene.autoHop();
+					jumps += 1;
 					if (currentWord == stage.length){
 						console.log('finished');
 						display_modal();
@@ -173,18 +170,14 @@ function startGame(){
 			create: create,
 			update: update,
 		},
-		// pixelArt: true
 	};
 
 	var game = new Phaser.Game(config);
 
 	function preload (){
-		this.load.image('skyeFront', 'images/Skyefrontview.png');
-		this.load.image('skyeSide', 'images/Skyesideview.png');
 		this.load.image('coco', 'images/coco.png');
 		this.load.image('beany', 'images/beany.png');
 		this.load.image('poppy', 'images/poppy.png');
-		this.load.image('bird', 'images/bird.png');
 		this.load.image('enviro', 'images/background.png');
 		this.load.image('ground', 'images/platform.png');
 		this.load.image('crate', 'images/crate.png');
@@ -232,19 +225,14 @@ function startGame(){
 		this.platforms.add(this.finish);
 		
 		// SETTING COLLIDERS
-		// this.finish.setCollideWorldBounds(true);
-		// this.physics.add.collider(this.finish, this.platforms);
-		// this.physics.add.collider(this.finish, this.ground);
 		this.physics.add.collider(this.platforms, this.ground);
 		this.physics.add.collider(this.player, this.ground);
 		this.physics.add.collider(this.player, this.platforms);
 		this.physics.add.collider(this.finish, this.player);
-		
-
 	}
 
 	function update (){
-		moveSkye.bind(this)();
+		moveDuck.bind(this)();
 	}
 
 	function makeCrates(x, crates){
@@ -290,7 +278,7 @@ function startGame(){
 		}
 	}
 
-	function moveSkye(){
+	function moveDuck(){
 		var cursors = this.input.keyboard.createCursorKeys();
 
 		if (this.player.x >= width/2){
@@ -302,6 +290,7 @@ function startGame(){
 			}
 		}
 
+    
 		if (cursors.right.isDown && this.player.body.touching.down){
 			currentWord++;
 			nextWord.innerHTML = stage[currentWord] || "";
@@ -312,9 +301,11 @@ function startGame(){
 			this.player.setVelocityX(0);
 		}
 
-		if (cursors.up.isDown && this.player.body.touching.down){
-			this.player.setVelocityY(-height/2);
+		if (this.player.body.touching.down && jumps > 0){
+			this.autoHop();
+			jumps -= 1;
 		}
+    
 	}
 
 	function scaleByHeight(object, h){ object.setScale(h/object.height); }
@@ -347,6 +338,10 @@ function pronounce_word(){
   }
 };
 
+
+
+;
+
 function display_modal(){
 	finished = true;
 	end_modal.style.display = "block";
@@ -355,14 +350,16 @@ function display_modal(){
 	star.setAttribute("width", "5%");
   star.style.display = 'inline-block';
 
-	if (total_words/sentence_length <= 3){
+  var sentence_length = sentence_to_read.innerHTML.split(' ').length;
+
+	if (total_words/sentence_length <= 4){
 		document.getElementById("stars").appendChild(star);
 		document.getElementById("stars").appendChild(star.cloneNode(true));
 		document.getElementById("stars").appendChild(star.cloneNode(true));
-	} else if (total_words/sentence_length > 3 && total_words/sentence_length <= 5){
+	} else if (total_words/sentence_length > 4 && total_words/sentence_length <= 6){
 		document.getElementById("stars").appendChild(star);
 		document.getElementById("stars").appendChild(star.cloneNode(true));
-	} else if (total_words/sentence_length > 5 && total_words/sentence_length <= 7){
+	} else if (total_words/sentence_length > 6 && total_words/sentence_length <= 8){
 		document.getElementById("stars").appendChild(star);
 	}
 	else {
@@ -385,6 +382,10 @@ if (levelNum == "Intermediate" && stageNum == 12){
   storm_modal.style.display = "block";
 }
 
+if (levelNum == "Advanced" && stageNum == 10){
+  reunited_modal.style.display = "block";
+}
+
 end_modal_close.onclick = function(){
   end_modal.style.display = "none";
 }
@@ -397,10 +398,14 @@ storm_modal_close.onclick = function(){
   storm_modal.style.display = "none";
 }
 
+reunited_modal_close.onclick = function(){
+  reunited_modal.style.display = "none";
+}
 
 window.onclick = function(event){
   end_modal.style.display = "none";
   intro_modal.style.display = "none";
+  storm_modal.style.display = "none";
 }
 
 function removePunctuation(str){

@@ -14,6 +14,8 @@ fetch('levels.json').then(response => response.json()).then(j => {
 		select.innerHTML += `<option>${k}</option>`
 	}
 
+	select.value = currentLevel;
+
 	json = j;
 	makeListings(currentLevel);
 });
